@@ -1,7 +1,6 @@
 "use client";
 
 import type { View, Status } from "@/lib/ticket-types";
-import { navItem, status as statusStyles } from "@/lib/styles";
 
 export function Header({
   view,
@@ -18,13 +17,13 @@ export function Header({
       </button>
       <nav>
         <button
-          className={navItem({ active: view === "home" })}
+          className={view === "home" ? "active" : ""}
           onClick={() => onNavigate("home")}
         >
           Home
         </button>
         <button
-          className={navItem({ active: view === "tickets" })}
+          className={view === "tickets" ? "active" : ""}
           onClick={() => onNavigate("tickets")}
         >
           My tickets <span className="nav-count">3</span>
@@ -41,9 +40,7 @@ export function Header({
 
 export function StatusBadge({ status }: { status: Status }) {
   return (
-    <span className={statusStyles({
-      state: status === "In progress" ? "In Progress" : status,
-    })}>
+    <span className={`status status-${status.toLowerCase().replace(" ", "-")}`}>
       <span className="status-dot" />
       {status}
     </span>
