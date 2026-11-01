@@ -180,11 +180,11 @@ export function TicketDetail({
             <div className="mt-6 space-y-4 border-t border-slate-200 pt-5">
               {ticket.messages.map((item, index) => (
                 <div className="rounded-lg bg-slate-50 p-4" key={`${item.date}-${index}`}>
-                  <div>
-                    <strong>{item.author}</strong>
-                    <span>{item.date}</span>
+                  <div className="mb-2 flex items-center gap-3 border-b border-slate-200 pb-2">
+                    <strong className="text-xs">{item.author}</strong>
+                    <span className="font-mono text-[10px] text-slate-500">{item.date}</span>
                   </div>
-                  <p>{item.text}</p>
+                  <p className="text-sm leading-relaxed text-slate-600">{item.text}</p>
                 </div>
               ))}
             </div>
@@ -233,7 +233,7 @@ export function TicketDetail({
                 />
               </label>
               <button
-                className="primary-button compact"
+                className="rounded-md bg-emerald-950 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-800"
                 type="submit"
                 disabled={!rating}
               >

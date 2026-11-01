@@ -88,7 +88,7 @@ export function Tickets({
             key={ticket.id}
             onClick={() => onSelect(ticket)}
           >
-            <div className="ticket-id">{ticket.id}</div>
+            <div className="font-mono text-[10px] tracking-wide text-emerald-700">{ticket.id}</div>
             <div className="min-w-0 flex-1">
               <strong>{ticket.title}</strong>
               <span>

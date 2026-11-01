@@ -39,32 +39,24 @@ export function Home({
         </div>
       </section>
       <section className="mt-20 grid gap-4 border-t border-slate-200 pt-7 md:grid-cols-3">
-<div className="quick-card">
-          <div className="quick-icon request-icon">+</div>
+<div className="flex items-center gap-4 rounded-lg border border-slate-200 bg-white p-5">
+          <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-emerald-100 font-mono text-xl text-emerald-700">+</div>
           <div>
             <h3>Make a request</h3>
             <p>Need access, equipment, or a service?</p>
           </div>
           <button onClick={() => onNavigate("create", "Requirement")}>→</button>
         </div>
-        <div className="quick-card">
-          <div className="quick-icon issue-icon">!</div>
+        <div className="flex items-center gap-4 rounded-lg border border-slate-200 bg-white p-5">
+          <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-amber-100 font-mono text-xl text-amber-700">!</div>
           <div>
             <h3>Report an incident</h3>
             <p>Something isn&apos;t working as it should?</p>
           </div>
           <button onClick={() => onNavigate("create", "Incidence")}>→</button>
         </div>
-        <div className="quick-card">
-          <div className="quick-icon issue-icon">!</div>
-          <div>
-            <h3>Report an incident</h3>
-            <p>Something isn't working as it should?</p>
-          </div>
-          <button onClick={() => onNavigate("create")}>→</button>
-        </div>
-        <div className="home-note">
-          <span className="note-pulse" />
+        <div className="flex items-center gap-3 pl-6 text-xs text-slate-500">
+          <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-400 ring-4 ring-emerald-100" />
           <div>
             <strong>Support hours</strong>
             <p>Mon–Fri, 8:00–18:00 CET</p>
