@@ -11,11 +11,13 @@ import {
 export function CreateTicket({
   onNavigate,
   onCreated,
+  initialType = "Requirement",
 }: {
   onNavigate: (view: View) => void;
   onCreated: (ticket: Ticket) => void;
+  initialType?: "Requirement" | "Incidence";
 }) {
-  const [type, setType] = useState("Requirement");
+  const [type, setType] = useState<"Requirement" | "Incidence">(initialType);
   const [requestedFor, setRequestedFor] = useState("Myself");
   const [submitted, setSubmitted] = useState(false);
   function submit(e: React.FormEvent) {

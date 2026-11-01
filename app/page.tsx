@@ -10,8 +10,10 @@ export default function App() {
   const [view, setView] = useState<View>("home");
   const [tickets, setTickets] = useState<Ticket[]>(initialTickets);
   const [selected, setSelected] = useState<Ticket | null>(null);
-  function navigate(next: View) {
+  const [createType, setCreateType] = useState<"Requirement" | "Incidence">("Requirement");
+  function navigate(next: View, initialType?: "Requirement" | "Incidence") {
     setSelected(null);
+    if (next === "create" && initialType) setCreateType(initialType);
     setView(next);
   }
   function updateTicket(updated: Ticket) {
@@ -34,6 +36,7 @@ export default function App() {
       ) : view === "create" ? (
         <CreateTicket
           onNavigate={navigate}
+          initialType={createType}
           onCreated={(ticket) => setTickets((current) => [ticket, ...current])}
         />
       ) : (

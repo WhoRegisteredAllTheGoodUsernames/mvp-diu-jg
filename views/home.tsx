@@ -2,7 +2,11 @@
 
 import type { View } from "@/lib/ticket-types";
 
-export function Home({ onNavigate }: { onNavigate: (view: View) => void }) {
+export function Home({
+  onNavigate,
+}: {
+  onNavigate: (view: View, initialType?: "Requirement" | "Incidence") => void;
+}) {
   return (
     <main className="home-page">
       <section className="hero">
@@ -35,13 +39,21 @@ export function Home({ onNavigate }: { onNavigate: (view: View) => void }) {
         </div>
       </section>
       <section className="home-lower">
-        <div className="quick-card">
+<div className="quick-card">
           <div className="quick-icon request-icon">+</div>
           <div>
             <h3>Make a request</h3>
             <p>Need access, equipment, or a service?</p>
           </div>
-          <button onClick={() => onNavigate("create")}>→</button>
+          <button onClick={() => onNavigate("create", "Requirement")}>→</button>
+        </div>
+        <div className="quick-card">
+          <div className="quick-icon issue-icon">!</div>
+          <div>
+            <h3>Report an incident</h3>
+            <p>Something isn&apos;t working as it should?</p>
+          </div>
+          <button onClick={() => onNavigate("create", "Incidence")}>→</button>
         </div>
         <div className="quick-card">
           <div className="quick-icon issue-icon">!</div>
