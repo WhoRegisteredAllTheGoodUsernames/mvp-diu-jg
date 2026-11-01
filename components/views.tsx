@@ -7,8 +7,8 @@ import { StatusBadge } from "@/components/header";
 
 export function Home({ onNavigate }: { onNavigate: (view: View) => void }) {
   return (
-    <main className="home-page">
-      <section className="hero">
+    <main className="mx-auto flex min-h-[calc(100vh-72px)] max-w-6xl flex-col justify-center px-6 py-16 md:px-10">
+      <section className="max-w-3xl">
         <div className="eyebrow">
           <span className="eyebrow-line" />
           SERVICE DESK
@@ -22,15 +22,15 @@ export function Home({ onNavigate }: { onNavigate: (view: View) => void }) {
           Raise a request, report an issue, or keep track of everything in one
           place.
         </p>
-        <div className="hero-actions">
+        <div className="mt-8 flex flex-wrap gap-3">
           <button
-            className="primary-button"
+            className="inline-flex items-center justify-center rounded-full bg-green px-5 py-3 text-sm font-semibold text-white transition hover:bg-deep disabled:cursor-not-allowed disabled:opacity-50"
             onClick={() => onNavigate("create")}
           >
             Create a ticket <span>→</span>
           </button>
           <button
-            className="secondary-button"
+            className="inline-flex items-center justify-center rounded-full border border-line bg-white px-5 py-3 text-sm font-semibold text-ink transition hover:border-green hover:text-green"
             onClick={() => onNavigate("tickets")}
           >
             View my tickets <span>↗</span>
@@ -99,8 +99,8 @@ export function CreateTicket({
     }, 900);
   }
   return (
-    <main className="content-page">
-      <div className="page-heading">
+    <main className="mx-auto w-full max-w-6xl px-6 py-10 md:px-10">
+      <div className="mb-8 flex flex-col gap-5 border-b border-line pb-8 md:flex-row md:items-end md:justify-between">
         <div>
           <button className="back-link" onClick={() => onNavigate("home")}>
             ← Back to home
@@ -215,7 +215,7 @@ export function CreateTicket({
             >
               Cancel
             </button>
-            <button className="primary-button" disabled={submitted}>
+            <button className="inline-flex items-center justify-center rounded-full bg-green px-5 py-3 text-sm font-semibold text-white transition hover:bg-deep disabled:cursor-not-allowed disabled:opacity-50" disabled={submitted}>
               {submitted ? "Sending..." : "Submit ticket"} <span>→</span>
             </button>
           </div>
@@ -246,7 +246,7 @@ export function Tickets({
             Track requests and incidents you've raised with the service desk.
           </p>
         </div>
-        <button className="primary-button" onClick={() => onNavigate("create")}>
+        <button className="inline-flex items-center justify-center rounded-full bg-green px-5 py-3 text-sm font-semibold text-white transition hover:bg-deep disabled:cursor-not-allowed disabled:opacity-50" onClick={() => onNavigate("create")}>
           Create a ticket <span>+</span>
         </button>
       </div>
@@ -357,7 +357,7 @@ export function TicketDetail({
         </div>
       </div>
       <div className="detail-grid">
-        <section className="detail-card">
+        <section className="rounded-2xl border border-line bg-white p-6 shadow-sm">
           {editing ? (
             <form className="edit-form" onSubmit={save}>
               <div className="card-label">EDIT REQUEST</div>
@@ -378,7 +378,7 @@ export function TicketDetail({
                   required
                 />
               </label>
-              <button className="primary-button" type="submit">
+              <button className="inline-flex items-center justify-center rounded-full bg-green px-5 py-3 text-sm font-semibold text-white transition hover:bg-deep disabled:cursor-not-allowed disabled:opacity-50" type="submit">
                 Save changes <span>→</span>
               </button>
             </form>
@@ -404,7 +404,7 @@ export function TicketDetail({
             </>
           )}
         </section>
-        <section className="detail-card">
+        <section className="rounded-2xl border border-line bg-white p-6 shadow-sm">
           <div className="card-label">ASSIGNMENT</div>
           <div className="assignment">
             <span className="worker-avatar">
@@ -461,7 +461,7 @@ export function TicketDetail({
               : ticket.worker}{" "}
             with any extra context.
           </p>
-          <form className="message-form" onSubmit={addMessage}>
+          <form className="mt-6 flex flex-col gap-3 border-t border-line pt-6" onSubmit={addMessage}>
             <textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
@@ -475,7 +475,7 @@ export function TicketDetail({
           {ticket.messages.length > 0 && (
             <div className="message-list">
               {ticket.messages.map((item, index) => (
-                <div className="message-item" key={`${item.date}-${index}`}>
+                <div className="border-b border-line py-5 last:border-b-0" key={`${item.date}-${index}`}>
                   <div>
                     <strong>{item.author}</strong>
                     <span>{item.date}</span>
