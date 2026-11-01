@@ -44,7 +44,7 @@ export function TicketDetail({
     setSurveySent(true);
   }
   return (
-    <main className="content-page detail-page">
+    <main className="mx-auto max-w-6xl px-6 py-10 sm:px-10">
       <button className="back-link" onClick={onBack}>
         ← Back to my tickets
       </button>
@@ -60,7 +60,7 @@ export function TicketDetail({
           <StatusBadge status={ticket.status} />
           {canEdit && (
             <button
-              className="secondary-button compact"
+              className="rounded-md border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-emerald-950 hover:bg-slate-50"
               onClick={() => setEditing(!editing)}
             >
               {editing ? "Cancel" : "Edit ticket"}
@@ -69,7 +69,7 @@ export function TicketDetail({
         </div>
       </div>
       <div className="detail-grid">
-        <section className="detail-card">
+        <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
           {editing ? (
             <form className="edit-form" onSubmit={save}>
               <div className="card-label">EDIT REQUEST</div>
@@ -90,7 +90,7 @@ export function TicketDetail({
                   required
                 />
               </label>
-              <button className="primary-button" type="submit">
+              <button className="rounded-md bg-emerald-950 px-4 py-3 text-xs font-bold text-white hover:bg-emerald-800" type="submit">
                 Save changes <span>→</span>
               </button>
             </form>
@@ -116,7 +116,7 @@ export function TicketDetail({
             </>
           )}
         </section>
-        <section className="detail-card">
+        <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="card-label">ASSIGNMENT</div>
           <div className="assignment">
             <span className="worker-avatar inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-center leading-none align-middle">
@@ -174,7 +174,7 @@ export function TicketDetail({
               placeholder="Add a message about this ticket..."
               rows={3}
             />
-            <button className="secondary-button compact" type="submit">
+            <button className="rounded-md border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-emerald-950 hover:bg-slate-50" type="submit">
               Send message <span>→</span>
             </button>
           </form>

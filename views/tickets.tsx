@@ -31,7 +31,7 @@ export function Tickets({
   }, [tickets, statusFilter, sortOrder]);
 
   return (
-    <main className="content-page tickets-page">
+    <main className="mx-auto max-w-6xl px-6 py-10 sm:px-10">
       <div className="page-heading tickets-heading">
         <div>
           <div className="eyebrow">YOUR ACTIVITY</div>
@@ -42,7 +42,7 @@ export function Tickets({
             Track requests and incidents you've raised with the service desk.
           </p>
         </div>
-        <button className="primary-button" onClick={() => onNavigate("create")}>
+        <button className="rounded-md bg-emerald-950 px-4 py-3 text-xs font-bold text-white hover:bg-emerald-800" onClick={() => onNavigate("create")}>
           Create a ticket <span>+</span>
         </button>
       </div>

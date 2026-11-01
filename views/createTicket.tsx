@@ -43,10 +43,10 @@ export function CreateTicket({
     }, 900);
   }
   return (
-    <main className="content-page">
-      <div className="page-heading">
+    <main className="mx-auto max-w-6xl px-6 py-10 sm:px-10">
+      <div className="mb-8 flex items-end justify-between gap-6">
         <div>
-          <button className="back-link" onClick={() => onNavigate("home")}>
+          <button className="mb-4 border-0 bg-transparent p-0 text-xs font-semibold text-slate-500 hover:text-emerald-700" onClick={() => onNavigate("home")}>
             ← Back to home
           </button>
           <div className="eyebrow">NEW TICKET</div>
@@ -60,8 +60,8 @@ export function CreateTicket({
           <small>Details</small>
         </div>
       </div>
-      <form className="ticket-form" onSubmit={submit}>
-        <div className="form-main">
+      <form className="grid gap-8 lg:grid-cols-[1fr_320px]" onSubmit={submit}>
+        <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
           <label>
             Title <span>*</span>
             <input required placeholder="e.g. Access to the design library" />
@@ -74,7 +74,7 @@ export function CreateTicket({
               rows={5}
             />
           </label>
-          <div className="form-row">
+          <div className="grid gap-5 sm:grid-cols-2">
             <label>
               Ticket type <span>*</span>
               <div className="segmented">
@@ -107,7 +107,7 @@ export function CreateTicket({
             </label>
           </div>
         </div>
-        <aside className="form-side">
+        <aside className="rounded-xl border border-slate-200 bg-slate-50 p-6">
           <div className="side-heading">
             <span className="side-number">02</span>
             <div>
@@ -157,7 +157,7 @@ export function CreateTicket({
             >
               Cancel
             </button>
-            <button className="primary-button" disabled={submitted}>
+            <button className="rounded-md bg-emerald-950 px-4 py-3 text-xs font-bold text-white hover:bg-emerald-800" disabled={submitted}>
               {submitted ? "Sending..." : "Submit ticket"} <span>→</span>
             </button>
           </div>
