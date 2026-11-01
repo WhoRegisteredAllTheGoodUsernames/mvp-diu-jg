@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@layer base {
-  :root { color-scheme: light; }
-  body { @apply min-h-screen bg-stone-50 text-emerald-950 antialiased; }
-  button, input, textarea, select { @apply font-sans; }
-}
+:root { color-scheme: light; }
+body { min-height: 100vh; font-family: Arial, Helvetica, sans-serif; }
+button, input, textarea, select { font: inherit; }
