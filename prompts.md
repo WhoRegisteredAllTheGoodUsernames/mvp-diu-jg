@@ -1,6 +1,6 @@
 # Registro de promps por commits y herramienta
 
-## Inicio - V0
+## Inicio - v0
 
 1. We need the frontend for a ticket platform. The following views are needed: A simple start page that allows the user to go to both next views, a ticket creation page and a 'my-tickets' section. The ticket creation should consider the following fields: Title, description, an option for creating the ticket in behalf of another user, a location selector (fixed locations in a list), type (requirement or incidence) and category. The 'my-tickets' section shows all tickets made by the user with their state, and also an optional detailed view of each ticket with all the fields in the creation form, and related to the ticket's state (assigned worker and their group) and resolution.
 2. The user should be able to edit an open ticket, add additional info (with a message to the assigned person) to in-progress and closed tickets.
