@@ -40,8 +40,8 @@ export function Header({
 
 export function StatusBadge({ status }: { status: Status }) {
   return (
-    <span className={`status inline-flex items-center gap-2 rounded-full px-2.5 py-1 text-xs font-semibold ${status === "Open" ? "bg-emerald-100 text-emerald-800" : status === "In Progress" ? "bg-amber-100 text-amber-800" : "bg-slate-100 text-slate-700"}`}>
-      <span className={`status-dot inline-block h-2 w-2 rounded-full ${status === "Open" ? "bg-emerald-500" : status === "In Progress" ? "bg-amber-500" : "bg-slate-500"}`} aria-hidden="true" />
+    <span className={`status inline-flex items-center gap-2 rounded-full px-2.5 py-1 text-xs font-semibold ${status === "Open" ? "bg-emerald-100 text-emerald-800" : status === "In progress" ? "bg-amber-100 text-amber-800" : "bg-slate-100 text-slate-700"}`}>
+      <span className={`status-dot inline-block h-2 w-2 rounded-full ${status === "Open" ? "bg-emerald-500" : status === "In progress" ? "bg-amber-500" : "bg-slate-500"}`} aria-hidden="true" />
       {status}
     </span>
   );
