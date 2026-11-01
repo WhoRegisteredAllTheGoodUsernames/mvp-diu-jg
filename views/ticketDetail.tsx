@@ -120,12 +120,6 @@ export function TicketDetail({
           <div className="card-label">ASSIGNMENT</div>
           <div className="assignment">
             <span className="worker-avatar inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-center leading-none align-middle">
-              {ticket.worker === "Unassigned"
-                ? "—"
-                : ticket.worker
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
             </span>
             <div>
               <span>Assigned worker</span>
