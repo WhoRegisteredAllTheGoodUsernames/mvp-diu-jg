@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import type { Ticket, View } from "@/lib/ticket-types";
 import { StatusBadge } from "@/components/header";
 
@@ -12,6 +13,23 @@ export function Tickets({
   onNavigate: (view: View) => void;
   onSelect: (ticket: Ticket) => void;
 }) {
+  const [statusFilter, setStatusFilter] = useState<"All" | "Open" | "Resolved">("All");
+  const [sortOrder, setSortOrder] = useState<"recent" | "oldest">("recent");
+
+  const visibleTickets = useMemo(() => {
+    const filtered = tickets.filter((ticket) => {
+      if (statusFilter === "All") return true;
+      return statusFilter === "Resolved"
+        ? ticket.status === "Resolved"
+        : ticket.status !== "Resolved";
+    });
+
+    return [...filtered].sort((a, b) => {
+      const comparison = a.created.localeCompare(b.created);
+      return sortOrder === "recent" ? -comparison : comparison;
+    });
+  }, [tickets, statusFilter, sortOrder]);
+
   return (
     <main className="content-page tickets-page">
       <div className="page-heading tickets-heading">
@@ -30,24 +48,41 @@ export function Tickets({
       </div>
       <div className="ticket-toolbar">
         <div className="tabs">
-          <button className="tab-active">
-            All tickets <span>{tickets.length}</span>
-          </button>
-          <button>
-            Open{" "}
-            <span>{tickets.filter((t) => t.status !== "Resolved").length}</span>
-          </button>
-          <button>
-            Resolved{" "}
-            <span>{tickets.filter((t) => t.status === "Resolved").length}</span>
-          </button>
+          {(["All", "Open", "Resolved"] as const).map((filter) => (
+            <button
+              className={statusFilter === filter ? "tab-active" : ""}
+              key={filter}
+              onClick={() => setStatusFilter(filter)}
+              type="button"
+            >
+              {filter === "All" ? "All tickets" : filter}{" "}
+              <span>
+                {filter === "All"
+                  ? tickets.length
+                  : tickets.filter((ticket) =>
+                      filter === "Resolved"
+                        ? ticket.status === "Resolved"
+                        : ticket.status !== "Resolved",
+                    ).length}
+              </span>
+            </button>
+          ))}
         </div>
-        <div className="sort-select">
-          Most recent <span>⌄</span>
-        </div>
+        <label className="sort-select">
+          <span className="sr-only">Sort tickets</span>
+          <select
+            value={sortOrder}
+            onChange={(event) =>
+              setSortOrder(event.target.value as "recent" | "oldest")
+            }
+          >
+            <option value="recent">Most recent</option>
+            <option value="oldest">Oldest first</option>
+          </select>
+        </label>
       </div>
       <div className="ticket-list">
-        {tickets.map((ticket) => (
+        {visibleTickets.map((ticket) => (
           <button
             className="ticket-row"
             key={ticket.id}
@@ -65,7 +100,9 @@ export function Tickets({
           </button>
         ))}
       </div>
-      <p className="list-footer">Showing all {tickets.length} tickets</p>
+      <p className="list-footer">
+        Showing {visibleTickets.length} of {tickets.length} tickets
+      </p>
     </main>
   );
 }
