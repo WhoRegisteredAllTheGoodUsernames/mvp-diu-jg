@@ -1,0 +1,18 @@
+:root {
+  --usm-blue-primary: #002D72;
+  --usm-blue-hover: #001F52;
+  --usm-blue-light: #EBF2FA;
+  --usm-gold: #D49000;
+  --usm-gold-hover: #B87D00;
+  --usm-gold-light: #FEF7E6;
+  --usm-red-accent: #C8102E;
+}
+
+.bg-usm-blue { background-color: var(--usm-blue-primary); }
+.bg-usm-blue-hover:hover { background-color: var(--usm-blue-hover); }
+.text-usm-blue { color: var(--usm-blue-primary); }
+.border-usm-blue { border-color: var(--usm-blue-primary); }
+
+.bg-usm-gold { background-color: var(--usm-gold); }
+.bg-usm-gold-hover:hover { background-color: var(--usm-gold-hover); }
+.text-usm-gold { color: var(--usm-gold); }
