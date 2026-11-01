@@ -1,8 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { Ticket, View } from "@/lib/ticket-types";
+import type { Ticket, View, Status } from "@/lib/ticket-types";
 import { StatusBadge } from "@/components/header";
+
+type StatusFilter = "All" | Status;
 
 export function Tickets({
   tickets,
@@ -13,22 +15,24 @@ export function Tickets({
   onNavigate: (view: View) => void;
   onSelect: (ticket: Ticket) => void;
 }) {
-  const [statusFilter, setStatusFilter] = useState<"All" | "Open" | "Resolved">("All");
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>("All");
   const [sortOrder, setSortOrder] = useState<"recent" | "oldest">("recent");
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Opciones de filtro exclusivas con sus etiquetas en español
+  const filterOptions: { key: StatusFilter; label: string }[] = [
+    { key: "All", label: "Todas" },
+    { key: "Open", label: "Nuevas" },
+    { key: "In progress", label: "En atención" },
+    { key: "Resolved", label: "Resueltas" },
+  ];
+
   const visibleTickets = useMemo(() => {
     const filtered = tickets.filter((ticket) => {
-      // Filtro por Estado
       const matchesStatus =
-        statusFilter === "All"
-          ? true
-          : statusFilter === "Resolved"
-          ? ticket.status === "Resolved" || ticket.status === "Closed"
-          : ticket.status !== "Resolved" && ticket.status !== "Closed";
+        statusFilter === "All" ? true : ticket.status === statusFilter;
 
-      // Filtro por Búsqueda (ID, Título, Ubicación o Categoría)
-      const q = searchQuery.toLowerCase();
+      const q = searchQuery.toLowerCase().trim();
       const matchesSearch =
         !q ||
         ticket.id.toLowerCase().includes(q) ||
@@ -44,17 +48,6 @@ export function Tickets({
       return sortOrder === "recent" ? -comparison : comparison;
     });
   }, [tickets, statusFilter, sortOrder, searchQuery]);
-
-  // Contadores para las pestañas
-  const counts = useMemo(() => {
-    const openCount = tickets.filter(
-      (t) => t.status !== "Resolved" && t.status !== "Closed"
-    ).length;
-    const resolvedCount = tickets.filter(
-      (t) => t.status === "Resolved" || t.status === "Closed"
-    ).length;
-    return { all: tickets.length, open: openCount, resolved: resolvedCount };
-  }, [tickets]);
 
   return (
     <main className="mx-auto max-w-6xl px-6 py-10 sm:px-10">
@@ -75,7 +68,7 @@ export function Tickets({
           <h1 className="mt-1 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
             Mis Solicitudes y Reportes
             <span className="ml-3 inline-flex items-center rounded-full bg-[#EBF2FA] px-2.5 py-0.5 align-middle font-mono text-xs font-bold text-[#002D72]">
-              {tickets.length} totales
+              {tickets.length} total
             </span>
           </h1>
           <p className="mt-1 text-xs text-slate-600 sm:text-sm">
@@ -88,69 +81,52 @@ export function Tickets({
           className="flex items-center gap-2 rounded-lg bg-[#002D72] px-4 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-[#001F52]"
           onClick={() => onNavigate("create")}
         >
-          <span>+ Reportar un problema</span>
+          <span className="text-base text-[#D49000]">+</span>
+          <span>Nuevo Reporte</span>
         </button>
       </div>
 
-      {/* Barra de Filtros, Búsqueda y Ordenamiento */}
+      {/* Barra de Filtros Exclusivos y Búsqueda */}
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        {/* Pestañas de estado */}
+        {/* Pestañas de estado exclusivas */}
         <div className="flex flex-wrap items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setStatusFilter("All")}
-            className={`flex items-center gap-2 rounded-lg px-3.5 py-2 text-xs font-bold transition ${
-              statusFilter === "All"
-                ? "bg-[#002D72] text-white shadow-sm"
-                : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-            }`}
-          >
-            <span>Todas</span>
-            <span className={`rounded-full px-1.5 py-0.2 text-[10px] font-mono ${
-              statusFilter === "All" ? "bg-white/20 text-white" : "bg-slate-200 text-slate-700"
-            }`}>
-              {counts.all}
-            </span>
-          </button>
+          {filterOptions.map((f) => {
+            // Conteo exacto y exclusivo por cada estado
+            const count =
+              f.key === "All"
+                ? tickets.length
+                : tickets.filter((t) => t.status === f.key).length;
 
-          <button
-            type="button"
-            onClick={() => setStatusFilter("Open")}
-            className={`flex items-center gap-2 rounded-lg px-3.5 py-2 text-xs font-bold transition ${
-              statusFilter === "Open"
-                ? "bg-[#002D72] text-white shadow-sm"
-                : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-            }`}
-          >
-            <span>En atención / Activas</span>
-            <span className={`rounded-full px-1.5 py-0.2 text-[10px] font-mono ${
-              statusFilter === "Open" ? "bg-white/20 text-white" : "bg-amber-100 text-amber-800"
-            }`}>
-              {counts.open}
-            </span>
-          </button>
+            const isSelected = statusFilter === f.key;
 
-          <button
-            type="button"
-            onClick={() => setStatusFilter("Resolved")}
-            className={`flex items-center gap-2 rounded-lg px-3.5 py-2 text-xs font-bold transition ${
-              statusFilter === "Resolved"
-                ? "bg-[#002D72] text-white shadow-sm"
-                : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-            }`}
-          >
-            <span>Resueltas</span>
-            <span className={`rounded-full px-1.5 py-0.2 text-[10px] font-mono ${
-              statusFilter === "Resolved" ? "bg-white/20 text-white" : "bg-emerald-100 text-emerald-800"
-            }`}>
-              {counts.resolved}
-            </span>
-          </button>
+            return (
+              <button
+                key={f.key}
+                type="button"
+                onClick={() => setStatusFilter(f.key)}
+                className={`flex items-center gap-2 rounded-lg px-3.5 py-2 text-xs font-bold transition ${
+                  isSelected
+                    ? "bg-[#002D72] text-white shadow-sm"
+                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                }`}
+              >
+                <span>{f.label}</span>
+                <span
+                  className={`rounded-full px-1.5 py-0.2 text-[10px] font-mono ${
+                    isSelected
+                      ? "bg-white/20 text-white"
+                      : "bg-slate-200 text-slate-700"
+                  }`}
+                >
+                  {count}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Buscador + Orden */}
+        {/* Buscador y Orden */}
         <div className="flex flex-1 items-center justify-end gap-3 sm:max-w-md">
-          {/* Input de Búsqueda rápida */}
           <div className="relative w-full">
             <input
               type="text"
@@ -162,6 +138,7 @@ export function Tickets({
             <span className="absolute left-2.5 top-2.5 text-xs text-slate-400">🔍</span>
             {searchQuery && (
               <button
+                type="button"
                 onClick={() => setSearchQuery("")}
                 className="absolute right-2 top-2 text-xs text-slate-400 hover:text-slate-600"
               >
@@ -170,7 +147,6 @@ export function Tickets({
             )}
           </div>
 
-          {/* Selector de ordenamiento */}
           <label className="shrink-0 text-xs text-slate-500">
             <span className="sr-only">Ordenar solicitudes</span>
             <select
@@ -185,7 +161,7 @@ export function Tickets({
         </div>
       </div>
 
-      {/* Listado de Tickets (Resuelve la Tarea 3 al mostrar estado claro y directo) */}
+      {/* Listado de Tickets */}
       <div className="divide-y divide-slate-200 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
         {visibleTickets.length === 0 ? (
           <div className="p-12 text-center">
@@ -195,8 +171,8 @@ export function Tickets({
             <h3 className="text-sm font-bold text-slate-800">No se encontraron solicitudes</h3>
             <p className="mt-1 text-xs text-slate-500">
               {searchQuery
-                ? "Prueba buscando con otros términos o limpia el filtro."
-                : "Aún no has generado requerimientos en este estado."}
+                ? "No hay tickets que coincidan con la búsqueda."
+                : "No hay tickets con este estado actualmente."}
             </p>
           </div>
         ) : (
@@ -229,7 +205,7 @@ export function Tickets({
                   </div>
                 </div>
 
-                {/* Contenido principal: Título, Categoría y Ubicación */}
+                {/* Contenido: Título, Categoría y Ubicación */}
                 <div className="min-w-0 flex-1">
                   <h3 className="text-sm font-bold text-slate-900 group-hover:text-[#002D72] line-clamp-1">
                     {ticket.title}
@@ -240,12 +216,12 @@ export function Tickets({
                     </span>
                     <span className="text-slate-300">•</span>
                     <span className="flex items-center gap-1 text-slate-500">
-                      📍 {ticket.location || "Campus San Joaquín"}
+                      📍 {ticket.location}
                     </span>
                   </div>
                 </div>
 
-                {/* Badge de Estado: Destacado visualmente para Tarea 3 */}
+                {/* Badge de Estado: Directo y exclusivo */}
                 <div className="flex items-center justify-between sm:justify-end gap-4 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
                   <StatusBadge status={ticket.status} />
                   <span className="text-xs font-bold text-slate-400 transition-transform group-hover:translate-x-1 group-hover:text-[#002D72]">
@@ -265,7 +241,7 @@ export function Tickets({
           <strong className="text-slate-700">{tickets.length}</strong> solicitudes
         </p>
         <span className="text-[11px] text-slate-400">
-          💡 Haz clic en cualquier ticket para ver la bitácora o complementarlo
+          💡 Estados: Nuevas, En atención y Resueltas son mutuamente excluyentes
         </span>
       </div>
     </main>
