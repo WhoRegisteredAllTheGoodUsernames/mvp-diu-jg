@@ -44,23 +44,21 @@ export function TicketDetail({
     setSurveySent(true);
   }
   return (
-    <main className="content-page detail-page">
-      <button className="back-link" onClick={onBack}>
+    <main className="mx-auto max-w-6xl px-6 py-10 sm:px-10">
+      <button className="mb-8 inline-flex items-center text-sm font-semibold text-emerald-800 hover:text-emerald-950" onClick={onBack}>
         ← Back to my tickets
       </button>
-      <div className="detail-heading">
+      <div className="mb-8 flex flex-col justify-between gap-5 border-b border-slate-200 pb-6 sm:flex-row sm:items-end">
         <div>
-          <div className="ticket-id large-id">{ticket.id}</div>
-          <h1>{ticket.title}</h1>
-          <p>
-            Created {ticket.created} · {ticket.type}
-          </p>
+          <div className="font-mono text-xs font-bold tracking-widest text-emerald-700">{ticket.id}</div>
+          <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-emerald-950">{ticket.title}</h1>
+          <p className="mt-2 text-sm text-slate-500">\n            Created {ticket.created} · {ticket.type}\n          </p>
         </div>
-        <div className="detail-actions">
+        <div className="flex items-center gap-3">
           <StatusBadge status={ticket.status} />
           {canEdit && (
             <button
-              className="secondary-button compact"
+              className="rounded-md border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-emerald-950 hover:bg-slate-50"
               onClick={() => setEditing(!editing)}
             >
               {editing ? "Cancel" : "Edit ticket"}
@@ -68,11 +66,11 @@ export function TicketDetail({
           )}
         </div>
       </div>
-      <div className="detail-grid">
-        <section className="detail-card">
+      <div className="grid gap-5 lg:grid-cols-[1fr_320px]">
+        <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
           {editing ? (
-            <form className="edit-form" onSubmit={save}>
-              <div className="card-label">EDIT REQUEST</div>
+            <form className="space-y-5" onSubmit={save}>
+              <div className="mb-5 text-[11px] font-bold tracking-[0.14em] text-emerald-700">EDIT REQUEST</div>
               <label>
                 Title
                 <input
@@ -90,16 +88,16 @@ export function TicketDetail({
                   required
                 />
               </label>
-              <button className="primary-button" type="submit">
+              <button className="rounded-md bg-emerald-950 px-4 py-3 text-xs font-bold text-white hover:bg-emerald-800" type="submit">
                 Save changes <span>→</span>
               </button>
             </form>
           ) : (
             <>
-              <div className="card-label">REQUEST DETAILS</div>
+              <div className="mb-5 text-[11px] font-bold tracking-[0.14em] text-emerald-700">REQUEST DETAILS</div>
               <h3>Description</h3>
-              <p className="description">{ticket.description}</p>
-              <div className="detail-fields">
+              <p className="mt-2 leading-7 text-slate-600">{ticket.description}</p>
+              <div className="mt-6 grid gap-4 border-t border-slate-200 pt-5 sm:grid-cols-3">
                 <div>
                   <span>Category</span>
                   <strong>{ticket.category}</strong>
@@ -116,10 +114,10 @@ export function TicketDetail({
             </>
           )}
         </section>
-        <section className="detail-card">
-          <div className="card-label">ASSIGNMENT</div>
-          <div className="assignment">
-            <span className="worker-avatar inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-center leading-none align-middle">
+        <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="mb-5 text-[11px] font-bold tracking-[0.14em] text-emerald-700">ASSIGNMENT</div>
+          <div className="mt-5 flex items-center gap-3">
+            <span className="worker-avatar inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-center align-middle text-xs font-bold leading-none text-indigo-700">
             </span>
             <div>
               <span>Assigned worker</span>
@@ -127,13 +125,13 @@ export function TicketDetail({
               <small>{ticket.group}</small>
             </div>
           </div>
-          <div className="timeline">
-            <div className="timeline-item done">
+          <div className="mt-7 space-y-5 border-l border-slate-200 pl-5">
+            <div className="relative text-sm font-semibold text-emerald-950">
               <span />
               Ticket submitted<div>Created {ticket.created}</div>
             </div>
             <div
-              className={`timeline-item ${ticket.status !== "Open" ? "done" : "current"}`}
+              className="relative text-sm font-semibold text-emerald-950"
             >
               <span />
               Being reviewed
@@ -144,7 +142,7 @@ export function TicketDetail({
               </div>
             </div>
             {ticket.status === "Resolved" && (
-              <div className="timeline-item done">
+              <div className="relative text-sm font-semibold text-emerald-950">
                 <span />
                 Ticket closed
                 <div>
@@ -157,36 +155,36 @@ export function TicketDetail({
         </section>
       </div>
       {ticket.status !== "Open" && (
-        <section className="detail-card conversation-card">
-          <div className="card-label">ADDITIONAL INFORMATION</div>
+        <section className="mt-5 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="mb-5 text-[11px] font-bold tracking-[0.14em] text-emerald-700">ADDITIONAL INFORMATION</div>
           <h3>Keep the conversation going</h3>
-          <p className="muted-copy">
+          <p className="mt-2 text-sm leading-6 text-slate-500">
             Send a message to{" "}
             {ticket.worker === "Unassigned"
               ? "the support team"
               : ticket.worker}{" "}
             with any extra context.
           </p>
-          <form className="message-form" onSubmit={addMessage}>
+          <form className="mt-5 flex flex-col gap-3" onSubmit={addMessage}>
             <textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Add a message about this ticket..."
               rows={3}
             />
-            <button className="secondary-button compact" type="submit">
+            <button className="rounded-md border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-emerald-950 hover:bg-slate-50" type="submit">
               Send message <span>→</span>
             </button>
           </form>
           {ticket.messages.length > 0 && (
-            <div className="message-list">
+            <div className="mt-6 space-y-4 border-t border-slate-200 pt-5">
               {ticket.messages.map((item, index) => (
-                <div className="message-item" key={`${item.date}-${index}`}>
-                  <div>
-                    <strong>{item.author}</strong>
-                    <span>{item.date}</span>
+                <div className="rounded-lg bg-slate-50 p-4" key={`${item.date}-${index}`}>
+                  <div className="mb-2 flex items-center gap-3 border-b border-slate-200 pb-2">
+                    <strong className="text-xs">{item.author}</strong>
+                    <span className="font-mono text-[10px] text-slate-500">{item.date}</span>
                   </div>
-                  <p>{item.text}</p>
+                  <p className="text-sm leading-relaxed text-slate-600">{item.text}</p>
                 </div>
               ))}
             </div>
@@ -194,22 +192,22 @@ export function TicketDetail({
         </section>
       )}
       {ticket.status === "Resolved" && (
-        <section className="detail-card survey-card">
-          <div className="card-label">HOW DID WE DO?</div>
+        <section className="mt-5 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="mb-5 text-[11px] font-bold tracking-[0.14em] text-emerald-700">HOW DID WE DO?</div>
           {surveySent ? (
-            <div className="survey-thanks">
+            <div className="flex flex-col gap-1 text-sm text-slate-600">
               <strong>Thanks for your feedback.</strong>
               <span>Your evaluation has been recorded.</span>
             </div>
           ) : (
             <form onSubmit={submitSurvey}>
               <h3>How would you rate the resolution?</h3>
-              <p className="muted-copy">
+              <p className="mt-2 text-sm leading-6 text-slate-500">
                 The assigned person closed this ticket as resolved. Tell us if
                 the solution worked for you.
               </p>
               <div
-                className="rating-row"
+                className="my-5 flex gap-2"
                 role="radiogroup"
                 aria-label="Resolution rating"
               >
@@ -217,11 +215,7 @@ export function TicketDetail({
                   <button
                     type="button"
                     key={value}
-                    className={
-                      rating >= value
-                        ? "rating-button selected"
-                        : "rating-button"
-                    }
+                    className={`flex h-10 w-10 items-center justify-center rounded-full border text-sm font-bold transition ${rating >= value ? "border-emerald-950 bg-emerald-950 text-white" : "border-slate-300 bg-white text-emerald-950 hover:bg-slate-50"}`}
                     onClick={() => setRating(value)}
                     aria-label={`${value} out of 5`}
                   >
@@ -239,7 +233,7 @@ export function TicketDetail({
                 />
               </label>
               <button
-                className="primary-button compact"
+                className="rounded-md bg-emerald-950 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-800"
                 type="submit"
                 disabled={!rating}
               >
