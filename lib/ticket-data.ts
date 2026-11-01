@@ -1,6 +1,8 @@
 import type { Ticket } from "./ticket-types"
 
 export const locations = ["Madrid HQ", "Barcelona Office", "Valencia Hub", "Remote / Home"]
+export const categories = ["Access & permissions", "Hardware", "Software", "General support"]
+export const requestedForOptions = ["Myself", "Jordan Lee", "Sam Taylor", "Priya Shah"]
 export const initialTickets: Ticket[] = [
   { id: "REQ-1048", title: "Access to the analytics workspace", description: "I need access to the marketing analytics workspace to prepare the Q4 performance report.", created: "Oct 24, 2024", status: "In progress", type: "Requirement", category: "Access & permissions", location: "Madrid HQ", requestedFor: "Alex Morgan", worker: "Daniel Ortiz", group: "IT Operations", resolution: "", messages: [{ author: "Daniel Ortiz", text: "I’m checking the workspace permissions with your manager.", date: "Oct 25, 2024" }] },
   { id: "INC-1042", title: "Meeting room display not working", description: "The display in meeting room Atlas does not show a signal when connecting a laptop.", created: "Oct 21, 2024", status: "Open", type: "Incidence", category: "Hardware", location: "Madrid HQ", requestedFor: "Alex Morgan", worker: "Unassigned", group: "IT Support", resolution: "", messages: [] },

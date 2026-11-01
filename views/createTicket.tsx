@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 import type { Ticket, View } from "@/lib/ticket-types";
-import { locations } from "@/lib/ticket-data";
+import {
+  categories,
+  locations,
+  requestedForOptions,
+} from "@/lib/ticket-data";
 
 export function CreateTicket({
   onNavigate,
@@ -94,10 +98,9 @@ export function CreateTicket({
                 <option value="" disabled>
                   Select a category
                 </option>
-                <option>Access & permissions</option>
-                <option>Hardware</option>
-                <option>Software</option>
-                <option>General support</option>
+                {categories.map((category) => (
+                  <option key={category}>{category}</option>
+                ))}
               </select>
             </label>
           </div>
@@ -127,10 +130,9 @@ export function CreateTicket({
               value={requestedFor}
               onChange={(e) => setRequestedFor(e.target.value)}
             >
-              <option>Myself</option>
-              <option>Jordan Lee</option>
-              <option>Sam Taylor</option>
-              <option>Priya Shah</option>
+              {requestedForOptions.map((option) => (
+                <option key={option}>{option}</option>
+              ))}
             </select>
           </label>
           <div className="form-hint">
