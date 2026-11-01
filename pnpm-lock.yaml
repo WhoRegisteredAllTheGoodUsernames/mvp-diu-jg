@@ -17,6 +17,9 @@ importers:
       react-dom:
         specifier: latest
         version: 19.3.1(react@19.3.1)
+      tailwind-variants:
+        specifier: ^4.0.1
+        version: 4.0.1
     devDependencies:
       '@types/node':
         specifier: latest
@@ -489,6 +492,10 @@ packages:
       babel-plugin-macros:
         optional: true
 
+  tailwind-variants@4.0.1:
+    resolution: {integrity: sha512-VumzgPklIwpneDWtskGuhEqPlfZZ2DeN1nIb2um9DRhk9XBX580s4N84A533j+oHN+dLz274HkKvSjr+64fggA==}
+    engines: {node: '>=16.9.x', pnpm: '>=7.x'}
+
   tslib@2.9.1:
     resolution: {integrity: sha512-a4Ux9VKuIMHsOS7ENbEq6hK2ZGYIT27Rtl0E4eD9KqwxhKiQeMZE/9xb3IdYwWaSOyIBQLExhQgXDTYoiCxnWA==}
 
@@ -816,6 +823,8 @@ snapshots:
     dependencies:
       client-only: 0.0.1
       react: 19.3.1
+
+  tailwind-variants@4.0.1: {}
 
   tslib@2.9.1: {}
 
