@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Header } from "@/components/header";
-import { CreateTicket, Home, TicketDetail, Tickets } from "@/components/views";
+import { CreateTicket, Home, TicketDetail, Tickets } from "@/views";
 import { initialTickets } from "@/lib/ticket-data";
 import type { Ticket, View } from "@/lib/ticket-types";
 
