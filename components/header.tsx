@@ -11,9 +11,9 @@ export function Header({
   onNavigate: (view: View) => void;
 }) {
   return (
-    <header className="sticky top-0 z-20 flex items-center justify-between border-b border-line bg-paper/95 px-6 py-4 backdrop-blur md:px-10">
-      <button className="flex items-center gap-3 font-mono text-sm font-medium tracking-[0.18em] text-deep" onClick={() => onNavigate("home")}>
-        <span className="grid size-8 place-items-center rounded-full bg-green text-sm font-bold text-white">R</span>
+    <header className="topbar">
+      <button className="brand" onClick={() => onNavigate("home")}>
+        <span className="brand-mark">R</span>
         <span>resolve</span>
       </button>
       <nav>
@@ -30,8 +30,8 @@ export function Header({
           My tickets <span className="nav-count">3</span>
         </button>
       </nav>
-      <div className="hidden items-center gap-3 text-sm text-muted sm:flex">
-        <span className="grid size-8 place-items-center rounded-full bg-mint font-mono text-xs text-deep">AM</span>
+      <div className="profile">
+        <span className="avatar">AM</span>
         <span className="profile-name">Alex Morgan</span>
         <span className="chevron">⌄</span>
       </div>
@@ -44,7 +44,7 @@ export function StatusBadge({ status }: { status: Status }) {
     <span className={statusStyles({
       state: status === "In progress" ? "In Progress" : status,
     })}>
-      <span className="size-2 rounded-full bg-green" />
+      <span className="status-dot" />
       {status}
     </span>
   );
