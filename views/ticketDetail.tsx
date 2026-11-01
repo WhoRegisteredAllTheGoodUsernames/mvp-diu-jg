@@ -117,7 +117,7 @@ export function TicketDetail({
         <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="mb-5 text-[11px] font-bold tracking-[0.14em] text-emerald-700">ASSIGNMENT</div>
           <div className="mt-5 flex items-center gap-3">
-            <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-center text-xs font-bold leading-none text-indigo-700 align-middle">
+            <span className="worker-avatar inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-center align-middle text-xs font-bold leading-none text-indigo-700">
             </span>
             <div>
               <span>Assigned worker</span>
