@@ -10,7 +10,13 @@ This repository is linked to a [v0](https://v0.app) project. You can continue de
 
 ## Getting Started
 
-First, run the development server:
+First, if it's the first time you run this proyect, install the dependencies:
+
+```bash
+npm install
+```
+
+Second, run the development server:
 
 ```bash
 npm run dev
