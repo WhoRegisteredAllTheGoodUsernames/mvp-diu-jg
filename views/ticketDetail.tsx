@@ -119,7 +119,7 @@ export function TicketDetail({
         <section className="detail-card">
           <div className="card-label">ASSIGNMENT</div>
           <div className="assignment">
-            <span className="worker-avatar">
+            <span className="worker-avatar inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-center align-middle">
               {ticket.worker === "Unassigned"
                 ? "—"
                 : ticket.worker
