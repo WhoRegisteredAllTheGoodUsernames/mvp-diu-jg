@@ -1,6 +1,6 @@
 # Registro de promps por commits y herramienta
 
-## Inicio - v0
+## Desde el [commit inicial](https://github.com/WhoRegisteredAllTheGoodUsernames/mvp-diu-jg/commit/61de8cf15e94a706a96b5a8df775d1d7eb938fa9) - v0 (Paula Vergara)
 
 1. We need the frontend for a ticket platform. The following views are needed: A simple start page that allows the user to go to both next views, a ticket creation page and a 'my-tickets' section. The ticket creation should consider the following fields: Title, description, an option for creating the ticket in behalf of another user, a location selector (fixed locations in a list), type (requirement or incidence) and category. The 'my-tickets' section shows all tickets made by the user with their state, and also an optional detailed view of each ticket with all the fields in the creation form, and related to the ticket's state (assigned worker and their group) and resolution.
 2. The user should be able to edit an open ticket, add additional info (with a message to the assigned person) to in-progress and closed tickets.
@@ -27,7 +27,7 @@
 23. There's still missing CSS classes: In components/header.tsx: profile-name, status, status-dot. In views/ticketDetail.tsx: worker-avatar.
 24. Fix the following error: components/header.tsx(43,166): error TS2367: This comparison appears to be unintentional because the types '"In progress" | "Resolved"' and '"In Progress"' have no overlap.
 
-## Commits 01e66508b4a925d6db4f948457d403ec3903f36d y 9c2776e9d84708cd016dbf2fea50285b27742bbe (rama front)
+## Commits [01e6650](https://github.com/WhoRegisteredAllTheGoodUsernames/mvp-diu-jg/commit/01e66508b4a925d6db4f948457d403ec3903f36d) y [9c2776e](https://github.com/WhoRegisteredAllTheGoodUsernames/mvp-diu-jg/commit/9c2776e9d84708cd016dbf2fea50285b27742bbe) - Gemini (Lucas Ansieta)
 
 1. Hola! Te comento el trabajo de hoy: Debemos desarrollar un MVP hecho en React de una plataforma tipo "Service Desk" (reporte de incidencias/apertura de tickets) universitario tal que las hipótesis propuestas en el informe se puedan testear directamente.
 
