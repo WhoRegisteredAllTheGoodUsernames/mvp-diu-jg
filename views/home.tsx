@@ -4,8 +4,10 @@ import type { View } from "@/lib/ticket-types";
 
 export function Home({
   onNavigate,
+  ticketCount,
 }: {
   onNavigate: (view: View, initialType?: "Requirement" | "Incidence") => void;
+  ticketCount: number;
 }) {
   return (
     <main className="mx-auto max-w-6xl px-6 py-12 sm:px-10 lg:py-16">
@@ -39,7 +41,7 @@ export function Home({
             onClick={() => onNavigate("tickets")}
           >
             <span>Consultar mis solicitudes</span>
-            <span className="rounded-full bg-slate-100 px-2 py-0.5 font-mono text-xs text-slate-700">3 totales</span>
+            <span className="rounded-full bg-slate-100 px-2 py-0.5 font-mono text-xs text-slate-700">{ticketCount} totales</span>
           </button>
         </div>
       </section>

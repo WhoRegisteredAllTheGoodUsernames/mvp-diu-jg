@@ -24,15 +24,16 @@ export default function App() {
   }
   return (
     <>
-      <Header view={view} onNavigate={navigate} />
+      <Header view={view} onNavigate={navigate} ticketCount={tickets.length} />
       {selected ? (
         <TicketDetail
+          key={selected.id}
           ticket={selected}
           onBack={() => setSelected(null)}
           onUpdate={updateTicket}
         />
       ) : view === "home" ? (
-        <Home onNavigate={navigate} />
+        <Home onNavigate={navigate} ticketCount={tickets.length} />
       ) : view === "create" ? (
         <CreateTicket
           onNavigate={navigate}

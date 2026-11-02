@@ -5,9 +5,11 @@ import type { View, Status } from "@/lib/ticket-types";
 export function Header({
   view,
   onNavigate,
+  ticketCount,
 }: {
   view: View;
   onNavigate: (view: View) => void;
+  ticketCount: number;
 }) {
   return (
     <header className="flex h-[76px] items-center justify-between border-b border-slate-200 bg-white px-6 shadow-sm sm:px-10">
@@ -71,7 +73,7 @@ export function Header({
           >
             Mis Solicitudes{" "}
             <span className="ml-1 rounded-full bg-slate-100 px-2 py-0.5 font-mono text-[11px] font-bold text-slate-700">
-              3
+              {ticketCount}
             </span>
           </button>
         </nav>

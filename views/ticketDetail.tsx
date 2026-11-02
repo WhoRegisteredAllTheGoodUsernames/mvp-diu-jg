@@ -23,10 +23,25 @@ export function TicketDetail({
   const [message, setMessage] = useState("");
 
   // Estados para Encuesta de Calidad (Hipótesis 5) y Reapertura (Hipótesis 6)
-  const [rating, setRating] = useState(0);
-  const [feedback, setFeedback] = useState("");
-  const [surveySent, setSurveySent] = useState(false);
+  const [rating, setRating] = useState(ticket.evaluation?.rating ?? 0);
+  const [feedback, setFeedback] = useState(ticket.evaluation?.comment ?? "");
   const [ticketReopened, setTicketReopened] = useState(false);
+
+  function resetDraft() {
+    setTitle(ticket.title);
+    setDescription(ticket.description);
+    setLocation(ticket.location);
+  }
+
+  function cancelEditing() {
+    resetDraft();
+    setEditing(false);
+  }
+
+  function toggleEditing() {
+    resetDraft();
+    setEditing(!editing);
+  }
 
   // Guardar edición directa
   function handleSave(e: React.FormEvent) {
@@ -73,7 +88,10 @@ export function TicketDetail({
   function handleSubmitSurvey(e: React.FormEvent) {
     e.preventDefault();
     if (!rating) return;
-    setSurveySent(true);
+    onUpdate({
+      ...ticket,
+      evaluation: { rating, comment: feedback.trim() },
+    });
   }
 
   // Reabrir Ticket si el problema continúa (Hipótesis 6)
@@ -94,7 +112,7 @@ export function TicketDetail({
     setTicketReopened(true);
   }
 
-  const isResolvedOrClosed = ticket.status === "Resolved" || ticket.status === "Closed";
+  const isResolved = ticket.status === "Resolved";
 
   return (
     <main className="mx-auto max-w-6xl px-6 py-10 sm:px-10">
@@ -132,7 +150,7 @@ export function TicketDetail({
         <div className="flex flex-wrap items-center gap-3 sm:self-center">
           <StatusBadge status={ticket.status} />
 
-          {!isResolvedOrClosed && (
+          {!isResolved && (
             <button
               type="button"
               className={`flex items-center gap-1.5 rounded-lg border px-3.5 py-2 text-xs font-bold shadow-xs transition ${
@@ -140,7 +158,7 @@ export function TicketDetail({
                   ? "border-slate-300 bg-slate-100 text-slate-700 hover:bg-slate-200"
                   : "border-[#002D72] bg-white text-[#002D72] hover:bg-[#EBF2FA]"
               }`}
-              onClick={() => setEditing(!editing)}
+              onClick={toggleEditing}
             >
               <span>{editing ? "✕ Cancelar edición" : "✏️ Editar o Corregir datos"}</span>
             </button>
@@ -220,7 +238,7 @@ export function TicketDetail({
                   <button
                     type="button"
                     className="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-bold text-slate-600 hover:bg-slate-50"
-                    onClick={() => setEditing(false)}
+                    onClick={cancelEditing}
                   >
                     Descartar cambios
                   </button>
@@ -345,17 +363,23 @@ export function TicketDetail({
           </section>
 
           {/* Sección: Evaluación y Reabrir Ticket (Hipótesis 5 y 6) */}
-          {isResolvedOrClosed && (
+          {isResolved && (
             <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <div className="flex items-center gap-2 font-mono text-xs font-bold tracking-wider text-[#002D72]">
                 <span className="h-0.5 w-4 bg-[#D49000]" />
                 RESOLUCIÓN Y EVALUACIÓN DEL SERVICIO
               </div>
 
-              {surveySent ? (
+              {ticket.evaluation ? (
                 <div className="mt-4 rounded-xl bg-emerald-50 p-4 border border-emerald-200 text-xs text-emerald-900">
                   <p className="font-bold">¡Gracias por evaluar la atención!</p>
                   <p className="mt-0.5">Tus comentarios nos ayudan a mejorar los servicios del campus.</p>
+                  <p className="mt-2 font-semibold">
+                    Tu evaluación: {ticket.evaluation.rating} de 5 estrellas.
+                  </p>
+                  {ticket.evaluation.comment && (
+                    <p className="mt-1 whitespace-pre-wrap">{ticket.evaluation.comment}</p>
+                  )}
                 </div>
               ) : (
                 <form onSubmit={handleSubmitSurvey} className="mt-4">
@@ -404,18 +428,20 @@ export function TicketDetail({
                     >
                       Enviar evaluación
                     </button>
-
-                    {/* Botón de Reapertura (Hipótesis 6) */}
-                    <button
-                      type="button"
-                      onClick={handleReopenTicket}
-                      className="rounded-lg border border-red-300 bg-red-50/50 px-3 py-2 text-xs font-bold text-[#C8102E] hover:bg-red-50"
-                    >
-                      ⚠️ El problema persiste: Reabrir caso
-                    </button>
                   </div>
                 </form>
               )}
+
+              {/* La reapertura sigue disponible después de evaluar la atención. */}
+              <div className="mt-4 flex justify-end">
+                <button
+                  type="button"
+                  onClick={handleReopenTicket}
+                  className="rounded-lg border border-red-300 bg-red-50/50 px-3 py-2 text-xs font-bold text-[#C8102E] hover:bg-red-50"
+                >
+                  ⚠️ El problema persiste: Reabrir caso
+                </button>
+              </div>
             </section>
           )}
         </div>
@@ -478,16 +504,16 @@ export function TicketDetail({
                 <div className="relative">
                   <span
                     className={`absolute -left-[21px] top-0.5 h-2.5 w-2.5 rounded-full ${
-                      isResolvedOrClosed
+                      isResolved
                         ? "bg-emerald-500 ring-4 ring-emerald-100"
                         : "bg-slate-300"
                     }`}
                   />
-                  <strong className={`block ${isResolvedOrClosed ? "text-slate-900" : "text-slate-400"}`}>
+                  <strong className={`block ${isResolved ? "text-slate-900" : "text-slate-400"}`}>
                     Resolución y Cierre
                   </strong>
                   <span className="text-[10px] text-slate-400">
-                    {isResolvedOrClosed
+                    {isResolved
                       ? ticket.resolution || "Trabajo finalizado e inspeccionado."
                       : "Pendiente de resolución en campus"}
                   </span>
