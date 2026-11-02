@@ -12,7 +12,7 @@ export default function App() {
   const [view, setView] = useState<View>("home");
   const [tickets, setTickets] = useState<Ticket[]>(initialTickets);
   const [selected, setSelected] = useState<Ticket | null>(null);
-  const [user, setUser] = useState<User | null>(defaultUser);
+  const [user, setUser] = useState<User>(defaultUser);
   const [createType, setCreateType] = useState<"Requirement" | "Incidence">("Requirement");
   function navigate(next: View, initialType?: "Requirement" | "Incidence") {
     setSelected(null);
