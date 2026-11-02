@@ -33,7 +33,7 @@ export function Home({
             className="flex items-center gap-2 rounded-lg bg-[#002D72] px-5 py-3.5 text-sm font-bold text-white shadow-md shadow-[#002D72]/20 transition-all hover:bg-[#001F52] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#002D72]/50"
             onClick={() => onNavigate("create")}
           >
-            <span>+ Reportar un problema</span>
+            <span>+ Crear un ticket</span>
           </button>
 
           <button

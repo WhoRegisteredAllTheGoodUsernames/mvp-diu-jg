@@ -1,15 +1,18 @@
 "use client";
 
 import type { View, Status } from "@/lib/ticket-types";
+import type { User } from "@/lib/user-types";
 
 export function Header({
   view,
   onNavigate,
   ticketCount,
+  user,
 }: {
   view: View;
   onNavigate: (view: View) => void;
   ticketCount: number;
+  user: User;
 }) {
   return (
     <header className="flex h-[76px] items-center justify-between border-b border-slate-200 bg-white px-6 shadow-sm sm:px-10">
@@ -85,17 +88,17 @@ export function Header({
           onClick={() => onNavigate("create")}
           className="hidden items-center gap-1.5 rounded-lg bg-[#002D72] px-3.5 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#001F52] md:flex"
         >
-          + Reportar un problema
+          + Crear un ticket
         </button>
 
-        {/* Perfil del usuario (Diego Pérez) */}
+        {/* Perfil del usuario */}
         <div className="flex items-center gap-3 border-l border-slate-200 pl-4 text-xs">
           <div className="grid h-9 w-9 place-items-center rounded-full bg-[#EBF2FA] text-xs font-bold text-[#002D72] ring-1 ring-[#002D72]/20">
             DP
           </div>
           <div className="hidden flex-col text-left sm:flex">
-            <span className="text-xs font-bold text-slate-900">Diego Pérez</span>
-            <span className="text-[10px] text-slate-500">Estudiante</span>
+            <span className="text-xs font-bold text-slate-900">{user.full_name}</span>
+            <span className="text-[10px] text-slate-500">{user.role}</span>
           </div>
         </div>
       </div>

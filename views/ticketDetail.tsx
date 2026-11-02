@@ -2,16 +2,19 @@
 
 import { useState } from "react";
 import type { Ticket } from "@/lib/ticket-types";
+import type { User } from "@/lib/user-types";
 import { StatusBadge } from "@/components/header";
 
 export function TicketDetail({
   ticket,
   onBack,
   onUpdate,
+  user,
 }: {
   ticket: Ticket;
   onBack: () => void;
   onUpdate: (ticket: Ticket) => void;
+  user: User;
 }) {
   // Estados para Edición Directa (Tarea 2)
   const [editing, setEditing] = useState(false);
@@ -55,7 +58,7 @@ export function TicketDetail({
         ...ticket.messages,
         {
           id: `msg-${Date.now()}`,
-          author: "Diego Pérez",
+          author: user.full_name,
           text: `[Información actualizada por el solicitante]: Título o descripción corregida.`,
           date: "Hace un momento",
         },
@@ -75,7 +78,7 @@ export function TicketDetail({
         ...ticket.messages,
         {
           id: `msg-${Date.now()}`,
-          author: "Diego Pérez",
+          author: user.full_name,
           text: message.trim(),
           date: "Hace un momento",
         },
@@ -103,8 +106,8 @@ export function TicketDetail({
         ...ticket.messages,
         {
           id: `msg-${Date.now()}`,
-          author: "Diego Pérez",
-          text: "Ticket reabierto por el estudiante. El problema persiste en las dependencias.",
+          author: user.full_name,
+          text: "Ticket reabierto por el solicitante. El problema persiste o el requerimiento no ha sido solucionado.",
           date: "Hace un momento",
         },
       ],
@@ -142,7 +145,7 @@ export function TicketDetail({
           </h1>
 
           <p className="text-xs text-slate-500">
-            Ingresado el {ticket.created} · Solicitante: <strong>{ticket.requestedFor || "Diego Pérez"}</strong>
+            Ingresado el {ticket.created} · Solicitante: <strong>{ticket.requestedFor || user.full_name}</strong>
           </p>
         </div>
 
@@ -196,7 +199,7 @@ export function TicketDetail({
 
                 <div>
                   <label htmlFor="edit-title" className="mb-1 block text-xs font-bold text-slate-700">
-                    Título del problema
+                    Título del ticket
                   </label>
                   <input
                     id="edit-title"
@@ -260,7 +263,7 @@ export function TicketDetail({
 
                 <div className="mt-4">
                   <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                    Descripción del problema reportado
+                    Descripción del ticket
                   </h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-slate-800 whitespace-pre-wrap">
                     {ticket.description}
@@ -291,7 +294,7 @@ export function TicketDetail({
                       Solicitante
                     </span>
                     <strong className="mt-1 block text-xs font-semibold text-slate-800">
-                      👤 {ticket.requestedFor || "Diego Pérez"}
+                      👤 {ticket.requestedFor || user.full_name}
                     </strong>
                   </div>
                 </div>
@@ -340,14 +343,14 @@ export function TicketDetail({
                   <div
                     key={item.id || index}
                     className={`rounded-xl p-4 border text-xs leading-relaxed ${
-                      item.author === "Diego Pérez"
+                      item.author === user.full_name
                         ? "border-blue-100 bg-[#EBF2FA]/40"
                         : "border-slate-200 bg-slate-50"
                     }`}
                   >
                     <div className="mb-1.5 flex items-center justify-between">
-                      <strong className={`font-bold ${item.author === "Diego Pérez" ? "text-[#002D72]" : "text-slate-800"}`}>
-                        {item.author} {item.author === "Diego Pérez" && "(Tú)"}
+                      <strong className={`font-bold ${item.author === user.full_name ? "text-[#002D72]" : "text-slate-800"}`}>
+                        {item.author} {item.author === user.full_name && "(Tú)"}
                       </strong>
                       <span className="font-mono text-[10px] text-slate-400">{item.date}</span>
                     </div>
@@ -384,7 +387,7 @@ export function TicketDetail({
               ) : (
                 <form onSubmit={handleSubmitSurvey} className="mt-4">
                   <h3 className="text-sm font-bold text-slate-900">
-                    ¿Se solucionó satisfactoriamente el problema reportado?
+                    ¿Se solucionó satisfactoriamente el ticket?
                   </h3>
                   <p className="mt-1 text-xs text-slate-500">
                     Califica la rapidez y efectividad del equipo de mantención.
@@ -439,7 +442,7 @@ export function TicketDetail({
                   onClick={handleReopenTicket}
                   className="rounded-lg border border-red-300 bg-red-50/50 px-3 py-2 text-xs font-bold text-[#C8102E] hover:bg-red-50"
                 >
-                  ⚠️ El problema persiste: Reabrir caso
+                  ⚠️ El ticket no ha sido resuelto: Reabrir caso
                 </button>
               </div>
             </section>

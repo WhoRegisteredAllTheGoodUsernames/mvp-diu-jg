@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Ticket, View } from "@/lib/ticket-types";
+import type { User } from "@/lib/user-types";
 import {
   categories,
   locations,
@@ -12,10 +13,12 @@ export function CreateTicket({
   onNavigate,
   onCreated,
   initialType = "Incidence",
+  user
 }: {
   onNavigate: (view: View) => void;
   onCreated: (ticket: Ticket) => void;
   initialType?: "Requirement" | "Incidence";
+  user: User;
 }) {
   const [type, setType] = useState<"Requirement" | "Incidence">(initialType);
   const [title, setTitle] = useState("");
@@ -23,7 +26,7 @@ export function CreateTicket({
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState(locations[0] || "");
   const [roomDetail, setRoomDetail] = useState("");
-  const [requestedFor, setRequestedFor] = useState(requestedForOptions[0] || "Para mí (Diego Pérez)");
+  const [requestedFor, setRequestedFor] = useState(requestedForOptions[0] || `Para mí (${user.full_name})`);
   const [otherPersonName, setOtherPersonName] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [createdTicketId, setCreatedTicketId] = useState<string | null>(null);
@@ -36,7 +39,7 @@ export function CreateTicket({
 
     const generatedId = `${type === "Requirement" ? "REQ" : "INC"}-${Math.floor(1000 + Math.random() * 9000)}`;
     const fullLocation = roomDetail.trim() ? `${location} · Sala/Espacio: ${roomDetail.trim()}` : location;
-    const finalRequester = isForOther && otherPersonName.trim() ? otherPersonName.trim() : "Diego Pérez";
+    const finalRequester = isForOther && otherPersonName.trim() ? otherPersonName.trim() : user.full_name;
 
     const newTicket: Ticket = {
       id: generatedId,
@@ -117,7 +120,7 @@ export function CreateTicket({
 
         <div className="flex items-center gap-2 rounded-lg bg-[#EBF2FA] px-3 py-1.5 text-xs font-semibold text-[#002D72]">
           <span>👤 Solicitante activo:</span>
-          <strong>Diego Pérez</strong>
+          <strong>{user.full_name}</strong>
         </div>
       </div>
 
