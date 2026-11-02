@@ -1,5 +1,6 @@
 "use client";
 
+import { ClipboardList, TriangleAlert } from "lucide-react";
 import type { View } from "@/lib/ticket-types";
 
 export function Home({
@@ -49,8 +50,8 @@ export function Home({
           >
             <div>
               <div className="flex items-center justify-between">
-                <div className="grid h-11 w-11 place-items-center rounded-lg bg-red-50 text-xl font-bold text-[#C8102E] ring-1 ring-red-200">
-
+                <div className="grid h-11 w-11 place-items-center rounded-lg bg-red-50 text-[#C8102E] ring-1 ring-red-200">
+                  <TriangleAlert aria-hidden="true" />
                 </div>
                 <span className="text-xs font-bold text-[#C8102E] uppercase tracking-wide">Falla / Desperfecto</span>
               </div>
@@ -74,8 +75,8 @@ export function Home({
           >
             <div>
               <div className="flex items-center justify-between">
-                <div className="grid h-11 w-11 place-items-center rounded-lg bg-[#EBF2FA] text-xl font-bold text-[#002D72] ring-1 ring-[#002D72]/20">
-
+                <div className="grid h-11 w-11 place-items-center rounded-lg bg-[#EBF2FA] text-[#002D72] ring-1 ring-[#002D72]/20">
+                  <ClipboardList aria-hidden="true" />
                 </div>
                 <span className="text-xs font-bold text-[#002D72] uppercase tracking-wide">Petición / Servicio</span>
               </div>

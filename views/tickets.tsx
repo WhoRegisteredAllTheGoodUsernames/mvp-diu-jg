@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { Ticket, View, Status } from "@/lib/ticket-types";
+import { AlertCircle, ClipboardList, Plus, Search, X } from "lucide-react";
 import { StatusBadge } from "@/components/header";
 
 type StatusFilter = "All" | Status;
@@ -77,7 +78,7 @@ export function Tickets({
           className="flex items-center gap-2 rounded-lg bg-[#002D72] px-4 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-[#001F52]"
           onClick={() => onNavigate("create")}
         >
-          <span className="text-base text-[#D49000]">+</span>
+          <Plus aria-hidden="true" className="size-4 text-[#D49000]" />
           <span>Nuevo Reporte</span>
         </button>
       </div>
@@ -131,14 +132,14 @@ export function Tickets({
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full rounded-lg border border-slate-300 bg-white py-2 pr-3 pl-8 text-xs text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-[#002D72] focus:ring-2 focus:ring-[#002D72]/15"
             />
-            <span className="absolute left-2.5 top-2.5 text-xs text-slate-400">🔍</span>
+            <Search aria-hidden="true" className="pointer-events-none absolute left-2.5 top-2.5 size-3.5 text-slate-400" />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
                 className="absolute right-2 top-2 text-xs text-slate-400 hover:text-slate-600"
               >
-                ✕
+                <X aria-hidden="true" className="size-3.5" />
               </button>
             )}
           </div>
@@ -189,7 +190,7 @@ export function Tickets({
                     }`}
                     title={isIncidence ? "Incidencia técnica" : "Requerimiento de servicio"}
                   >
-                    {isIncidence ? "!" : ""}
+                    {isIncidence ? <AlertCircle aria-hidden="true" /> : <ClipboardList aria-hidden="true" />}
                   </span>
                   <div>
                     <span className="font-mono text-xs font-bold text-[#002D72] group-hover:underline">

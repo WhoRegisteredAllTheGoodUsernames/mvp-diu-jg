@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { Ticket } from "@/lib/ticket-types";
 import type { User } from "@/lib/user-types";
+import { Pencil, UserRound } from "lucide-react";
 import { StatusBadge } from "@/components/header";
 
 export function TicketDetail({
@@ -163,6 +164,7 @@ export function TicketDetail({
               }`}
               onClick={toggleEditing}
             >
+                  {editing ? null : <Pencil aria-hidden="true" />}
                   <span>{editing ? "Cancelar edición" : "Editar"}</span>
             </button>
           )}
@@ -453,8 +455,8 @@ export function TicketDetail({
             </div>
 
             <div className="mt-4 flex items-center gap-3">
-              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#EBF2FA] text-sm font-bold text-[#002D72]">
-                
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#EBF2FA] text-[#002D72]">
+                <UserRound aria-hidden="true" />
               </div>
               <div className="min-w-0">
                 <span className="block text-[10px] uppercase font-bold text-slate-400">Técnico resolutor</span>
