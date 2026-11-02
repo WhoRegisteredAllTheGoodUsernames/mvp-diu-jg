@@ -136,7 +136,7 @@ export function TicketDetail({
               {ticket.id}
             </span>
             <span className="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-600">
-              {ticket.type === "Incidence" ? "⚠️ Incidencia" : "📋 Requerimiento"}
+              {ticket.type === "Incidence" ? "Incidencia" : "Requerimiento"}
             </span>
           </div>
 
@@ -144,8 +144,8 @@ export function TicketDetail({
             {ticket.title}
           </h1>
 
-          <p className="text-xs text-slate-500">
-            Ingresado el {ticket.created} · Solicitante: <strong>{ticket.requestedFor || user.full_name}</strong>
+            <p className="text-xs text-slate-500">
+            {ticket.created} · {ticket.requestedFor || user.full_name}
           </p>
         </div>
 
@@ -163,7 +163,7 @@ export function TicketDetail({
               }`}
               onClick={toggleEditing}
             >
-              <span>{editing ? "✕ Cancelar edición" : "✏️ Editar o Corregir datos"}</span>
+                  <span>{editing ? "Cancelar edición" : "Editar"}</span>
             </button>
           )}
         </div>
@@ -172,10 +172,7 @@ export function TicketDetail({
       {/* Notificación de ticket reabierto */}
       {ticketReopened && (
         <div className="mb-6 flex items-center gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-xs text-amber-900">
-          <span className="text-base">🔔</span>
-          <p>
-            <strong>Has reabierto este caso.</strong> El ticket volvió a estado <em>En atención</em> y el personal técnico ha sido notificado para una nueva revisión en terreno.
-          </p>
+                  <p><strong>Ticket reabierto.</strong> El equipo revisará el caso nuevamente.</p>
         </div>
       )}
 
@@ -285,7 +282,7 @@ export function TicketDetail({
                       Ubicación exacta
                     </span>
                     <strong className="mt-1 block text-xs font-semibold text-slate-800">
-                      📍 {ticket.location}
+                      {ticket.location}
                     </strong>
                   </div>
 
@@ -294,7 +291,7 @@ export function TicketDetail({
                       Solicitante
                     </span>
                     <strong className="mt-1 block text-xs font-semibold text-slate-800">
-                      👤 {ticket.requestedFor || user.full_name}
+                      {ticket.requestedFor || user.full_name}
                     </strong>
                   </div>
                 </div>
@@ -308,11 +305,9 @@ export function TicketDetail({
               <div>
                 <div className="flex items-center gap-2 font-mono text-xs font-bold tracking-wider text-[#002D72]">
                   <span className="h-0.5 w-4 bg-[#D49000]" />
-                  HISTORIAL Y COMUNICACIÓN CON RESOLUTORES
+                  Historial
                 </div>
-                <p className="mt-1 text-xs text-slate-500">
-                  ¿Tienes más detalles o fotos que aportar? Escribe una nota para el técnico a cargo.
-                </p>
+
               </div>
             </div>
 
@@ -370,7 +365,7 @@ export function TicketDetail({
             <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <div className="flex items-center gap-2 font-mono text-xs font-bold tracking-wider text-[#002D72]">
                 <span className="h-0.5 w-4 bg-[#D49000]" />
-                RESOLUCIÓN Y EVALUACIÓN DEL SERVICIO
+                Evaluación
               </div>
 
               {ticket.evaluation ? (
@@ -442,7 +437,7 @@ export function TicketDetail({
                   onClick={handleReopenTicket}
                   className="rounded-lg border border-red-300 bg-red-50/50 px-3 py-2 text-xs font-bold text-[#C8102E] hover:bg-red-50"
                 >
-                  ⚠️ El ticket no ha sido resuelto: Reabrir caso
+                  Reabrir caso
                 </button>
               </div>
             </section>
@@ -459,7 +454,7 @@ export function TicketDetail({
 
             <div className="mt-4 flex items-center gap-3">
               <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#EBF2FA] text-sm font-bold text-[#002D72]">
-                🛠️
+                
               </div>
               <div className="min-w-0">
                 <span className="block text-[10px] uppercase font-bold text-slate-400">Técnico resolutor</span>

@@ -61,12 +61,8 @@ export function Tickets({
           >
             ← Volver al inicio
           </button>
-          <div className="flex items-center gap-2 font-mono text-xs font-bold tracking-[0.14em] text-[#002D72]">
-            <span className="h-0.5 w-5 bg-[#D49000]" />
-            SEGUIMIENTO DE CASOS
-          </div>
-          <h1 className="mt-1 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
-            Mis Solicitudes y Reportes
+          <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
+            Mis tickets
             <span className="ml-3 inline-flex items-center rounded-full bg-[#EBF2FA] px-2.5 py-0.5 align-middle font-mono text-xs font-bold text-[#002D72]">
               {tickets.length} total
             </span>
@@ -166,7 +162,7 @@ export function Tickets({
         {visibleTickets.length === 0 ? (
           <div className="p-12 text-center">
             <div className="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-full bg-slate-100 text-xl text-slate-400">
-              📋
+
             </div>
             <h3 className="text-sm font-bold text-slate-800">No se encontraron solicitudes</h3>
             <p className="mt-1 text-xs text-slate-500">
@@ -193,7 +189,7 @@ export function Tickets({
                     }`}
                     title={isIncidence ? "Incidencia técnica" : "Requerimiento de servicio"}
                   >
-                    {isIncidence ? "⚠️" : "📋"}
+                    {isIncidence ? "!" : ""}
                   </span>
                   <div>
                     <span className="font-mono text-xs font-bold text-[#002D72] group-hover:underline">
@@ -216,7 +212,7 @@ export function Tickets({
                     </span>
                     <span className="text-slate-300">•</span>
                     <span className="flex items-center gap-1 text-slate-500">
-                      📍 {ticket.location}
+                      {ticket.location}
                     </span>
                   </div>
                 </div>
@@ -240,9 +236,7 @@ export function Tickets({
           Mostrando <strong className="text-slate-700">{visibleTickets.length}</strong> de{" "}
           <strong className="text-slate-700">{tickets.length}</strong> solicitudes
         </p>
-        <span className="text-[11px] text-slate-400">
-          💡 Estados: Nuevas, En atención y Resueltas son mutuamente excluyentes
-        </span>
+
       </div>
     </main>
   );
