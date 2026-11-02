@@ -1,6 +1,8 @@
 "use client";
 
 import { ClipboardList, TriangleAlert } from "lucide-react";
+import { Button } from "@/components/button";
+import { Card, CardTitle } from "@/components/card";
 import type { View } from "@/lib/ticket-types";
 
 export function Home({
@@ -18,27 +20,28 @@ export function Home({
         </h1>
 
         <div className="mt-8 flex flex-wrap gap-4">
-          <button
-            className="flex items-center gap-2 rounded-lg bg-[#002D72] px-5 py-3.5 text-sm font-bold text-white shadow-md shadow-[#002D72]/20 transition-all hover:bg-[#001F52] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#002D72]/50"
+          <Button
+            className="px-5 py-3.5 text-sm shadow-md shadow-[#002D72]/20 hover:shadow-lg"
             onClick={() => onNavigate("create")}
           >
             <span>+ Crear un ticket</span>
-          </button>
+          </Button>
 
-          <button
-            className="flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3.5 text-sm font-bold text-[#002D72] shadow-sm transition-all hover:border-[#002D72] hover:bg-[#EBF2FA]/40 focus:outline-none"
+          <Button
+            variant="secondary"
+            className="px-5 py-3.5 text-sm"
             onClick={() => onNavigate("tickets")}
           >
             <span>Consultar mis solicitudes</span>
             <span className="rounded-full bg-slate-100 px-2 py-0.5 font-mono text-xs text-slate-700">{ticketCount} totales</span>
-          </button>
+          </Button>
         </div>
       </section>
 
       {/* Sección: Selección guiada para resolver la confusión Incidencia vs Requerimiento */}
       <section className="mt-14 border-t border-slate-200 pt-10">
         <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <h2 className="text-lg font-bold text-slate-900">¿Qué necesitas?</h2>
+          <CardTitle>¿Qué necesitas?</CardTitle>
         </div>
 
         <div className="grid max-w-3xl gap-5 md:grid-cols-2">

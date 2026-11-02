@@ -3,6 +3,8 @@
 import { useState } from "react";
 import type { Ticket } from "@/lib/ticket-types";
 import type { User } from "@/lib/user-types";
+import { Button } from "@/components/button";
+import { Card } from "@/components/card";
 import { Pencil, UserRound } from "lucide-react";
 import { StatusBadge } from "@/components/header";
 

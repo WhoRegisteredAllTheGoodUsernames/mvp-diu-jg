@@ -3,6 +3,8 @@
 import { useMemo, useState } from "react";
 import type { Ticket, View, Status } from "@/lib/ticket-types";
 import { AlertCircle, ClipboardList, Plus, Search, X } from "lucide-react";
+import { Button } from "@/components/button";
+import { Card } from "@/components/card";
 import { StatusBadge } from "@/components/header";
 
 type StatusFilter = "All" | Status;
@@ -55,13 +57,13 @@ export function Tickets({
       {/* Encabezado Principal */}
       <div className="mb-8 flex flex-col justify-between gap-5 border-b border-slate-200 pb-6 sm:flex-row sm:items-end">
         <div>
-          <button
-            type="button"
-            className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-[#002D72]"
+          <Button
+            variant="ghost"
+            className="mb-2 px-0 py-0 text-xs font-semibold"
             onClick={() => onNavigate("home")}
           >
             ← Volver al inicio
-          </button>
+          </Button>
           <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
             Mis tickets
             <span className="ml-3 inline-flex items-center rounded-full bg-[#EBF2FA] px-2.5 py-0.5 align-middle font-mono text-xs font-bold text-[#002D72]">
@@ -74,13 +76,10 @@ export function Tickets({
         </div>
 
         {/* Botón directo para crear ticket */}
-        <button
-          className="flex items-center gap-2 rounded-lg bg-[#002D72] px-4 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-[#001F52]"
-          onClick={() => onNavigate("create")}
-        >
+        <Button onClick={() => onNavigate("create")}>
           <Plus aria-hidden="true" className="size-4 text-[#D49000]" />
           <span>Nuevo Reporte</span>
-        </button>
+        </Button>
       </div>
 
       {/* Barra de Filtros Exclusivos y Búsqueda */}
@@ -159,7 +158,7 @@ export function Tickets({
       </div>
 
       {/* Listado de Tickets */}
-      <div className="divide-y divide-slate-200 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <Card as="div" className="divide-y divide-slate-200 overflow-hidden">
         {visibleTickets.length === 0 ? (
           <div className="p-12 text-center">
             <div className="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-full bg-slate-100 text-xl text-slate-400">
@@ -229,7 +228,7 @@ export function Tickets({
             );
           })
         )}
-      </div>
+      </Card>
 
       {/* Pie de lista */}
       <div className="mt-4 flex items-center justify-between text-xs text-slate-500">
