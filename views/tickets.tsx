@@ -5,6 +5,7 @@ import type { Ticket, View, Status } from "@/lib/ticket-types";
 import { AlertCircle, ClipboardList, Plus, Search, X } from "lucide-react";
 import { Button } from "@/components/button";
 import { Card } from "@/components/card";
+import { PageTitle, Description } from "@/components/typography";
 import { StatusBadge } from "@/components/header";
 
 type StatusFilter = "All" | Status;
@@ -64,15 +65,15 @@ export function Tickets({
           >
             ← Volver al inicio
           </Button>
-          <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
+          <PageTitle className="text-2xl sm:text-3xl">
             Mis tickets
             <span className="ml-3 inline-flex items-center rounded-full bg-[#EBF2FA] px-2.5 py-0.5 align-middle font-mono text-xs font-bold text-[#002D72]">
               {tickets.length} total
             </span>
-          </h1>
-          <p className="mt-1 text-xs text-slate-600 sm:text-sm">
+          </PageTitle>
+          <Description className="mt-1 text-slate-600 sm:text-sm">
             Revisa el estado en tiempo real, complementa información o consulta la resolución de tus requerimientos.
-          </p>
+          </Description>
         </div>
 
         {/* Botón directo para crear ticket */}

@@ -2,6 +2,7 @@
 
 import type { View, Status } from "@/lib/ticket-types";
 import type { User } from "@/lib/user-types";
+import { Button } from "@/components/button";
 
 export function Header({
   view,
@@ -18,8 +19,9 @@ export function Header({
     <header className="flex h-[76px] items-center justify-between border-b border-slate-200 bg-white px-6 shadow-sm sm:px-10">
       <div className="flex items-center gap-8 sm:gap-12">
         {/* Identidad Institucional USM con Logo oficial */}
-        <button
-          className="flex items-center gap-3.5 border-0 bg-transparent text-left focus:outline-none"
+        <Button
+          variant="ghost"
+          className="h-auto rounded-none p-0 text-left"
           onClick={() => onNavigate("home")}
           aria-label="Ir al inicio de USM Denuncia"
         >
@@ -52,7 +54,7 @@ export function Header({
               Mesa de Servicios 360°
             </span>
           </div>
-        </button>
+        </Button>
 
         {/* Navegación Principal */}
         <nav className="hidden h-full items-center gap-6 sm:flex">
@@ -84,12 +86,12 @@ export function Header({
 
       <div className="flex items-center gap-4">
         {/* Botón de acción rápida: evita desvíos de búsqueda para Tarea 1 */}
-        <button
+        <Button
+          className="hidden px-3.5 py-2 text-xs md:flex"
           onClick={() => onNavigate("create")}
-          className="hidden items-center gap-1.5 rounded-lg bg-[#002D72] px-3.5 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#001F52] md:flex"
         >
           + Crear un ticket
-        </button>
+        </Button>
 
         {/* Perfil del usuario */}
         <div className="flex items-center gap-3 border-l border-slate-200 pl-4 text-xs">

@@ -2,7 +2,8 @@
 
 import { ClipboardList, TriangleAlert } from "lucide-react";
 import { Button } from "@/components/button";
-import { Card, CardTitle } from "@/components/card";
+import { CardTitle } from "@/components/card";
+import { PageTitle } from "@/components/typography";
 import type { View } from "@/lib/ticket-types";
 
 export function Home({
@@ -15,9 +16,9 @@ export function Home({
   return (
     <main className="mx-auto max-w-6xl px-6 py-12 sm:px-10 lg:py-16">
       <section className="max-w-3xl">
-        <h1 className="mt-4 mb-4 text-4xl font-extrabold leading-tight tracking-tight text-[#002D72] sm:text-5xl lg:text-6xl">
+        <PageTitle className="mt-4 mb-4 text-4xl text-[#002D72] sm:text-5xl lg:text-6xl">
           ¿En qué podemos ayudarte?
-        </h1>
+        </PageTitle>
 
         <div className="mt-8 flex flex-wrap gap-4">
           <Button

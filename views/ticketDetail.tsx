@@ -5,6 +5,7 @@ import type { Ticket } from "@/lib/ticket-types";
 import type { User } from "@/lib/user-types";
 import { Button } from "@/components/button";
 import { Card } from "@/components/card";
+import { PageTitle, Description, SectionTitle } from "@/components/typography";
 import { Pencil, UserRound } from "lucide-react";
 import { StatusBadge } from "@/components/header";
 
@@ -143,13 +144,13 @@ export function TicketDetail({
             </span>
           </div>
 
-          <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
+          <PageTitle className="text-2xl sm:text-3xl">
             {ticket.title}
-          </h1>
+          </PageTitle>
 
-            <p className="text-xs text-slate-500">
+            <Description>
             {ticket.created} · {ticket.requestedFor || user.full_name}
-          </p>
+            </Description>
         </div>
 
         {/* Controles de Estado y Botón de Edición (Tarea 2) */}
